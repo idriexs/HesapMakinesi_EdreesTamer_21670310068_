@@ -1,10 +1,12 @@
-﻿namespace HesapMakinesi_EdreesTamer_21670310068
+using System.Collections.Generic;
+
+namespace HesapMakinesi_EdreesTamer_21670310068
 {
     public partial class MainPage : ContentPage
     {
+        List<double> numbers = new List<double>();
+        List<string> operators = new List<string>();
         double currentNumber = 0;
-        double result = 0;
-        string currentOperator = null;
         bool isNewEntry = true;
 
         public MainPage()
@@ -15,9 +17,9 @@
         void OnClearClicked(object sender, EventArgs e)
         {
             Display.Text = "0";
+            numbers.Clear();
+            operators.Clear();
             currentNumber = 0;
-            result = 0;
-            currentOperator = null;
             isNewEntry = true;
         }
 
@@ -35,7 +37,7 @@
             Button button = (Button)sender;
             string pressed = button.Text;
 
-            if ((Display.Text == "0" && pressed != ".") || isNewEntry)
+            if (isNewEntry)
             {
                 Display.Text = "";
                 isNewEntry = false;
@@ -60,64 +62,56 @@
 
             if (double.TryParse(Display.Text, out currentNumber))
             {
-                if (currentOperator != null && !isNewEntry)
-                {
-                    CalculateResult();
-                }
-                else
-                {
-                    result = currentNumber; 
-                }
+                numbers.Add(currentNumber);
+                operators.Add(pressedOperator);
             }
 
-            currentOperator = pressedOperator;
+            
             isNewEntry = true;
         }
 
         void OnEqualClicked(object sender, EventArgs e)
         {
-            if (currentOperator != null && double.TryParse(Display.Text, out currentNumber))
+            if (double.TryParse(Display.Text, out currentNumber))
             {
-                CalculateResult(); 
-                currentOperator = null;
-                Display.Text = result.ToString();
-                isNewEntry = true;
+                numbers.Add(currentNumber);
             }
+
+            CalculateWithPrecedence();
+            Display.Text = numbers[0].ToString();
+            numbers.Clear();
+            operators.Clear();
+            isNewEntry = true;
         }
 
-        void CalculateResult()
+        void CalculateWithPrecedence()
         {
-            switch (currentOperator)
+            
+            for (int i = 0; i < operators.Count; i++)
             {
-                case "+":
-                    result += currentNumber;
-                    break;
-                case "−":
-                    result -= currentNumber;
-                    break;
-                case "×":
-                    result *= currentNumber;
-                    break;
-                case "÷":
-                    if (currentNumber == 0)
-                    {
-                        DisplayAlert("Error", "Cannot divide by zero", "OK");
-                        return;
-                    }
-                    result /= currentNumber;
-                    break;
-                case "mod":
-                    if (currentNumber == 0)
-                    {
-                        DisplayAlert("Error", "Cannot mod by zero", "OK");
-                        return;
-                    }
-                    result %= currentNumber; 
-                    break;
+                if (operators[i] == "×" || operators[i] == "÷")
+                {
+                    double result = operators[i] == "×"
+                        ? numbers[i] * numbers[i + 1]
+                        : numbers[i] / numbers[i + 1];
+                    numbers[i] = result;
+                    numbers.RemoveAt(i + 1);
+                    operators.RemoveAt(i);
+                    i--;
+                }
             }
 
-            Display.Text = result.ToString(); 
-            isNewEntry = true;
+            
+            for (int i = 0; i < operators.Count; i++)
+            {
+                if (operators[i] == "+")
+                    numbers[i] += numbers[i + 1];
+                else if (operators[i] == "−")
+                    numbers[i] -= numbers[i + 1];
+                numbers.RemoveAt(i + 1);
+                operators.RemoveAt(i);
+                i--;
+            }
         }
     }
 }
