@@ -62,11 +62,10 @@ namespace HesapMakinesi_EdreesTamer_21670310068
 
             if (double.TryParse(Display.Text, out currentNumber))
             {
-                numbers.Add(currentNumber);
-                operators.Add(pressedOperator);
+                numbers.Add(currentNumber); 
             }
 
-            
+            operators.Add(pressedOperator);
             isNewEntry = true;
         }
 
@@ -74,11 +73,11 @@ namespace HesapMakinesi_EdreesTamer_21670310068
         {
             if (double.TryParse(Display.Text, out currentNumber))
             {
-                numbers.Add(currentNumber);
+                numbers.Add(currentNumber); 
             }
 
-            CalculateWithPrecedence();
-            Display.Text = numbers[0].ToString();
+            CalculateWithPrecedence(); 
+            Display.Text = numbers[0].ToString(); 
             numbers.Clear();
             operators.Clear();
             isNewEntry = true;
@@ -89,13 +88,35 @@ namespace HesapMakinesi_EdreesTamer_21670310068
             
             for (int i = 0; i < operators.Count; i++)
             {
-                if (operators[i] == "×" || operators[i] == "÷")
+                if (operators[i] == "×" || operators[i] == "÷" || operators[i] == "mod")
                 {
-                    double result = operators[i] == "×"
-                        ? numbers[i] * numbers[i + 1]
-                        : numbers[i] / numbers[i + 1];
-                    numbers[i] = result;
-                    numbers.RemoveAt(i + 1);
+                    double result = 0;
+
+                    if (operators[i] == "×")
+                    {
+                        result = numbers[i] * numbers[i + 1];
+                    }
+                    else if (operators[i] == "÷")
+                    {
+                        if (numbers[i + 1] == 0)
+                        {
+                            DisplayAlert("Error", "Cannot divide by zero", "OK");
+                            return;
+                        }
+                        result = numbers[i] / numbers[i + 1];
+                    }
+                    else if (operators[i] == "mod")
+                    {
+                        if (numbers[i + 1] == 0)
+                        {
+                            DisplayAlert("Error", "Cannot mod by zero", "OK");
+                            return;
+                        }
+                        result = numbers[i] % numbers[i + 1];
+                    }
+
+                    numbers[i] = result; 
+                    numbers.RemoveAt(i + 1); 
                     operators.RemoveAt(i);
                     i--;
                 }
@@ -105,12 +126,16 @@ namespace HesapMakinesi_EdreesTamer_21670310068
             for (int i = 0; i < operators.Count; i++)
             {
                 if (operators[i] == "+")
+                {
                     numbers[i] += numbers[i + 1];
+                }
                 else if (operators[i] == "−")
+                {
                     numbers[i] -= numbers[i + 1];
-                numbers.RemoveAt(i + 1);
-                operators.RemoveAt(i);
-                i--;
+                }
+                numbers.RemoveAt(i + 1); 
+                operators.RemoveAt(i); 
+                i--; 
             }
         }
     }
