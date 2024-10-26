@@ -1,0 +1,8 @@
+﻿<maui:MauiWinUIApplication
+    x:Class="HesapMakinesi_EdreesTamer_21670310068.WinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:maui="using:Microsoft.Maui"
+    xmlns:local="using:HesapMakinesi_EdreesTamer_21670310068.WinUI">
+
+</maui:MauiWinUIApplication>

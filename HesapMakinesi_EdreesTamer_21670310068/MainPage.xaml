@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="HesapMakinesi_EdreesTamer_21670310068.MainPage"
+    Title="Hesap Makinesi / Edrees Version">
+
+    <Grid RowDefinitions="Auto,*" Padding="3">
+        
+        <Entry x:Name="Display"
+               FontSize="60"
+               Text="0"
+               HorizontalTextAlignment="End"
+               VerticalOptions="Center"
+               IsReadOnly="True"
+               Grid.Row="0" />
+
+        
+        <Grid Grid.Row="1" RowSpacing="5" ColumnSpacing="5">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            
+            <Button Text="C" Grid.Row="0" Grid.Column="0" Clicked="OnClearClicked" FontSize="30"/>
+            <Button Text="±" Grid.Row="0" Grid.Column="1" Clicked="OnToggleSignClicked" FontSize="30"/>
+            <Button Text="mod" Grid.Row="0" Grid.Column="2" Clicked="OnOperatorClicked" FontSize="30"/>
+            <Button Text="÷" Grid.Row="0" Grid.Column="3" Clicked="OnOperatorClicked" FontSize="30" />
+
+            
+            <Button Text="7" Grid.Row="1" Grid.Column="0" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="8" Grid.Row="1" Grid.Column="1" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="9" Grid.Row="1" Grid.Column="2" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="×" Grid.Row="1" Grid.Column="3" Clicked="OnOperatorClicked" FontSize="30"/>
+
+            
+            <Button Text="4" Grid.Row="2" Grid.Column="0" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="5" Grid.Row="2" Grid.Column="1" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="6" Grid.Row="2" Grid.Column="2" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="−" Grid.Row="2" Grid.Column="3" Clicked="OnOperatorClicked" FontSize="30" />
+
+            
+            <Button Text="1" Grid.Row="3" Grid.Column="0" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="2" Grid.Row="3" Grid.Column="1" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="3" Grid.Row="3" Grid.Column="2" Clicked="OnNumberClicked" FontSize="30"/>
+            <Button Text="+" Grid.Row="3" Grid.Column="3" Clicked="OnOperatorClicked" FontSize="30"/>
+
+            
+            <Button Text="0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Clicked="OnNumberClicked" FontSize="30" />
+            <Button Text="." Grid.Row="4" Grid.Column="2" Clicked="OnDecimalClicked" FontSize="30"/>
+            <Button Text="=" Grid.Row="4" Grid.Column="3" Clicked="OnEqualClicked" FontSize="30"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>
